@@ -58,10 +58,13 @@
             	});
             },
             create : function() {
-            	topicDataStore.push({
-            		title : this.new_topic,
-                    user : current_user
-            	});
+                if(this.new_topic) {
+                    topicDataStore.push({
+                        title : this.new_topic,
+                        user : current_user
+                    });
+                    this.new_topic = "";
+                }
             },
             goto_chatroom : function(topic_id) {
             	current_topic_id = topic_id;
@@ -136,12 +139,14 @@
         },
         methods : {
             post : function() {
-                getMessageDataStore(current_topic_id).push({
-                	content : escapeHTML(this.new_message),
-            		user : current_user,
-            		timestamp : new Date().getTime()
-                });
-                this.new_memo = "";
+                if(this.new_message) {
+                    getMessageDataStore(current_topic_id).push({
+                        content : escapeHTML(this.new_message),
+                        user : current_user,
+                        timestamp : new Date().getTime()
+                    });
+                    this.new_message = "";
+                }
             },
             fetch : function() {
                 var self = this;
