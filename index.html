@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Timeline</title>
+
+    <!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<script id="topics-template" type="text/template">
+<div class="row">
+	<div class="col-xs-5">
+		<ol class="breadcrumb">
+		  <li><a href="#" class="active">Topics</a></li>
+		</ol>
+	</div>
+	<div class="col-xs-1">
+		<!-- Single button -->
+		<div class="btn-group">
+		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		    メニュー <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" role="menu">
+		    <li><a v-on="click: goto_account()">アカウント</a></li>
+		  </ul>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-6">
+		<div class="input-group">
+	      <input type="text" class="form-control" v-model="new_topic">
+	      <span class="input-group-btn">
+	        <button class="btn btn-default" type="button" v-on="click: create()">トピック作成</button>
+	      </span>
+	    </div>
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-lg-6">
+		<div class="list-group" v-repeat="topics | topics_filter">
+		  <a class="list-group-item" v-on="click: goto_chatroom(topic_id)">
+		    <h4 class="list-group-item-heading" v-text="title"></h4>
+		    <div class="list-group-item-text"></div>
+		  </a>
+		</div>
+	</div>
+</div>
+</script>
+
+<script id="chat-template" type="text/template">
+<ol class="breadcrumb">
+  <li><a href="#">Topics</a></li>
+  <li class="active" v-text="title"></li>
+</ol>
+<div class="row">
+	<div class="col-lg-6">
+		<div class="input-group">
+	      <input type="text" class="form-control" v-model="new_message">
+	      <span class="input-group-btn">
+	        <button class="btn btn-default" type="button" v-on="click: post()">投稿</button>
+	      </span>
+	    </div><!-- /input-group -->
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-lg-6">
+		<ul class="list-group" v-repeat="messages | messages_filter">
+			<li class="list-group-item"><span class="badge" v-text="user.name"></span><div v-text="content"></div></li>
+		</ul>
+	</div>
+</div>
+</script>
+
+<script id="init-template" type="text/template">
+	<div class="row">
+	  <div class="col-lg-6">
+		名前を入力してください
+		<div class="input-group">
+	      <input type="text" class="form-control" v-model="username">
+	      <span class="input-group-btn">
+	        <button class="btn btn-default" type="button" v-on="click: setting()">設定</button>
+	      </span>
+	    </div>
+	  </div>
+	</div>
+</script>
+
+<script id="account-template" type="text/template">
+<ol class="breadcrumb">
+  <li><a href="#">Topics</a></li>
+  <li class="active">Account</li>
+</ol>
+	<div class="row">
+	  <div class="col-lg-6">
+		名前を入力してください
+		<div class="input-group">
+	      <input type="text" class="form-control" v-model="username">
+	      <span class="input-group-btn">
+	        <button class="btn btn-default" type="button" v-on="click: update()">更新</button>
+	      </span>
+	    </div>
+	  </div>
+	</div>
+</script>
+
+  </head>
+  <body>
+
+		<div class="container">
+            <div id="content">
+                <div v-view="currentView"></div>
+            </div>
+        </div> <!-- /container -->
+        <script src="js/lib/vue.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdn.mlkcca.com/v0.2.8/milkcocoa.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="js/timeline.min.js"></script>
+  </body>
+</html>
