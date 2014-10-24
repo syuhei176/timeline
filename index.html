@@ -51,8 +51,8 @@
 <hr>
 <div class="row">
 	<div class="col-lg-6">
-		<div class="list-group" v-repeat="topics | topics_filter">
-		  <a class="list-group-item" v-on="click: goto_chatroom(topic_id)">
+		<div class="list-group">
+		  <a class="list-group-item" v-repeat="topics | topics_filter" v-on="click: goto_chatroom(topic_id)">
 		    <h4 class="list-group-item-heading" v-text="title"></h4>
 		    <div class="list-group-item-text"></div>
 		  </a>
@@ -79,8 +79,8 @@
 <hr>
 <div class="row">
 	<div class="col-lg-6">
-		<ul class="list-group" v-repeat="messages | messages_filter">
-			<li class="list-group-item"><span class="badge" v-text="user.name"></span><div v-text="content"></div></li>
+		<ul class="list-group">
+			<li class="list-group-item" v-repeat="messages | messages_filter"><span class="badge" v-text="user.name"></span><div v-text="content"></div></li>
 		</ul>
 	</div>
 </div>
