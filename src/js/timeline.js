@@ -41,10 +41,9 @@
             fetch : function() {
             	var self = this;
             	topicDataStore.on("push", function(e) {
-            		self.topics.push({
+            		self.topics.unshift({
             			topic_id : e.id,
-            			title : e.value.title,
-            			user : current_user
+            			title : e.value.title
             		});
             	});
             	topicDataStore.query({}).desc().done(function(topics) {
@@ -60,7 +59,8 @@
             },
             create : function() {
             	topicDataStore.push({
-            		title : this.new_topic
+            		title : this.new_topic,
+                    user : current_user
             	});
             },
             goto_chatroom : function(topic_id) {
