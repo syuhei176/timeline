@@ -46,23 +46,23 @@
             			title : e.value.title
             		});
             	});
-            	topicDataStore.query({}).desc().done(function(topics) {
+            	topicDataStore.query({}).asc().limit(20).done(function(topics) {
             		if(topics) {
 	            		self.topics = topics.map(function(t) {
 	            			return {
 		            			topic_id : t.id,
-	            				title : t.title
+	            				title : t.title == "" ? "トピック名が設定されていません" : t.title
 	            			}
-	            		});
+	            		}).reverse();
             		}
             	});
             },
             create : function() {
                 if(this.new_topic) {
-                    topicDataStore.push({
+                    topicDataStore.pushWithPriority({
                         title : this.new_topic,
                         user : current_user
-                    });
+                    }, new Date().getTime());
                     this.new_topic = "";
                 }
             },
@@ -146,12 +146,14 @@
                         timestamp : new Date().getTime()
                     });
                     this.new_message = "";
+                    topicDataStore.setPriority(current_topic_id, new Date().getTime());
                 }
             },
             fetch : function() {
                 var self = this;
                 topicDataStore.get(current_topic_id, function(topic) {
                 	self.title = topic.title;
+                    window.document.title = self.title;
                 });
                 getMessageDataStore(current_topic_id).on("push", function(e) {
                 	self.messages.unshift({
