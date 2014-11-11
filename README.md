@@ -1,4 +1,4 @@
-timeline
+Timeline -リアルタイム掲示板-
 ========
 
 milkcocoaで作成した掲示板システムです。
